@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import Input from "../Components/Input";
-import Button from "../Components/Button";
-import useInput from "../Hooks/useInput";
+import Input from "../../Components/Input";
+import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,6 @@ const Wrapper = styled.div`
 const Box = styled.div`
   ${props => props.theme.whiteBox}
   border-radius:0px;
-  width: 350px;
   width: 100%;
   max-width: 350px;
 `;
@@ -23,6 +22,11 @@ const Box = styled.div`
 const StateChanger = styled(Box)`
   text-align: center;
   padding: 20px 0px;
+`;
+
+const Link = styled.span`
+  color: ${props => props.theme.blueColor};
+  cursor: pointer;
 `;
 
 const Form = styled(Box)`
@@ -43,46 +47,37 @@ const Form = styled(Box)`
   }
 `;
 
-const Link = styled.span`
-  color: ${props => props.theme.blueColor};
-  cursor: pointer;
-`;
-
-export default () => {
-  const [action, setAction] = useState("login");
-  const name = useInput("");
-  const password = useInput("");
-  const confirmPassword = useInput("");
-  const email = useInput("");
-
-  return (
-    <Wrapper>
-      <Form>
-        {action === "logIn" ? (
+export default ({ action, name, password, email, setAction, onSubmit }) => (
+  <Wrapper>
+    <Form>
+      {action === "logIn" && (
+        <>
+          <Helmet>
+            <title>Log In | Outstagram</title>
+          </Helmet>
           <form>
             <Input placeholder={"Email"} {...email} />
             <Input placeholder={"Password"} {...password} type="password" />
             <Button text={"Log in"} />
           </form>
-        ) : (
-          <form>
-            <Input
-              className="email"
-              placeholder={"Email"}
-              {...email}
-              type="email"
-            />
-            <Input placeholder={"Name"} {...name} />
+        </>
+      )}
+      {action === "signUp" && (
+        <>
+          <Helmet>
+            <title>Sign Up | Outstagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"Email"} {...email} type="email" />
             <Input placeholder={"Password"} {...password} type="password" />
-            <Input
-              placeholder={"Confirm Password"}
-              {...confirmPassword}
-              type="password"
-            />
+            <Input placeholder={"Name"} {...name} />
             <Button text={"Sign up"} />
           </form>
-        )}
-      </Form>
+        </>
+      )}
+    </Form>
+
+    {
       <StateChanger>
         {action === "logIn" ? (
           <>
@@ -96,6 +91,6 @@ export default () => {
           </>
         )}
       </StateChanger>
-    </Wrapper>
-  );
-};
+    }
+  </Wrapper>
+);

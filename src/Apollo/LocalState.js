@@ -19,4 +19,4 @@ export const resolvers = {
       return null;
     }
   }
-};
+}; //로그인 또는 로그아웃을 실행할 resolver.

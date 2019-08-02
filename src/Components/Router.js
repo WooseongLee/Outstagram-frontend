@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "../Routes/Login";
+import Login from "../Routes/Login/LoginContainer";
 import Feed from "../Routes/Feed";
 
 const LoggedInRoutes = () => (
@@ -20,7 +20,7 @@ const AppRouter = ({ isLoggedIn }) => (
   <Router>
     <Switch>{isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}</Switch>
   </Router>
-); //로그인 여부에 따라 해당 페이지를 호출할 함수
+); //로그인 여부에 따라 해당 페이지를 호출할 함수.
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
